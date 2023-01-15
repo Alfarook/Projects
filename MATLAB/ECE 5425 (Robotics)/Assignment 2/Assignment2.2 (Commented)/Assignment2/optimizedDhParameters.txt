@@ -1,0 +1,4 @@
+theta_i (deg)		d_i (mm)		a_i (mm)		alpha_i (deg)		sigma_i		offset (deg)		joint_min		joint_max				baseX (mm)		baseY (mm)
+-10.00			79.6			108.8			0			0		11.476			-10.03			125.75					143.95			47.5
+156.55			17.4			116.7			180			0		3.048			14.12			156.55
+0			81.5			0			0			1		0			81.2   			97.2

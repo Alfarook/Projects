@@ -1,0 +1,14 @@
+%         function obj = computeRandomRobotMove(obj)
+%             [emptyCellsR, emptyCellsC] = find(obj.gameBoard == -1);
+%             emptyCells = [emptyCellsR, emptyCellsC];
+% 
+%             %randomply choose empty cell
+%             randCellIndex = emptyCells(randi(size(emptyCells, 1)), :);
+% 
+%             %update selected cell matrix
+%             obj.selectedCellMatrix = zeros(3,3);
+%             obj.selectedCellMatrix(randCellIndex(1), randCellIndex(2)) = 1;
+% 
+%             %move robot to selected cell
+%             obj.moveToCell(obj.selectedCellMatrix);
+%         end

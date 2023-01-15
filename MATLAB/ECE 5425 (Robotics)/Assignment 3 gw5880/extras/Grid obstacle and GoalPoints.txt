@@ -1,0 +1,17 @@
+New Grid obstacle and Goal Points
+
+Map size
+230, 300
+
+GridPositionMM (x,y)
+30, 90
+
+GridSizeMM (width)
+60
+
+GoalPointsMM (Center top going clockwise in mm)
+60	80	80	80	60	40	40	40	60
+140	140	120	100	100	100	120	140	140
+
+StartPositionMM
+45, 165

@@ -1,0 +1,68 @@
+% Script that goes around a grid using Distance Transform Method of Path
+% Planning
+
+% Setting default values about where to draw the grid and how tall
+% and wide the grid should be
+defaultPositionMM = {'30', '90', '60'};
+
+positionXY = [str2double(defaultPositionMM{1}),str2double(defaultPositionMM{2})]/1000;
+width_height = str2double(defaultPositionMM{3})/1000;
+
+% Using the "drawGrid" function from the class "RobotSystem" to
+% draw a default grid
+app.robotSystem.drawGrid(positionXY(1), positionXY(2), width_height, width_height);
+
+
+% Update GUI elements after grid is drawn
+app.updateDHParametersMatrixFromVariables(app.robotSystem.getModelVariables());
+app.updateDHtable();
+app.updateEEPositionLabels();
+app.updateJointControlSliders();
+
+%  Starting timer to find out how long the algorithm takes
+tic
+
+% Making Tic-Tac-Toe grid obstacle
+map = zeros(200,300);
+
+map(88:152,48:52)=1;
+map(88:152,68:72)=1;
+map(108:112,28:92)=1;
+map(128:132,28:92)=1;
+
+% Variable to sum up all the individual paths
+TotalPath = [];
+
+% Centers of each cell on the outside of the grid starting from the top
+% center and going clockwise
+goalPoints = [60  80  80  80  60  40  40  40  60;
+              140 140 120 100 100 100 120 140 140;];
+
+% Starting location near the first goal point
+startLocation = [45;165];
+
+% Initializing the DXform Contructor with the obstacle map
+distanceTransformMethod = DXform(map);
+
+for i = 1:numcols(goalPoints)
+    % Using Distance Method to compute a cost map using a goal
+    % and the obstacle map
+    distanceTransformMethod.plan(goalPoints(:,i));
+
+    % Displays the animation of robotic movement from start to the goal
+    path = distanceTransformMethod.query(startLocation);
+
+    % Saving each individual path. Paths are saved as Nx2 matrices of XY
+    % coordinates
+    TotalPath = vertcat(TotalPath, path);
+    startLocation = goalPoints(:,i);
+
+    % Plotting heat map
+    distanceTransformMethod.plot(path)
+end
+
+% Ending timer to find total time elapsed
+toc
+
+% Plotting all the individual paths together
+distanceTransformMethod.plot(TotalPath)
